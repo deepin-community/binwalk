@@ -1,0 +1,7 @@
+Tests: upstream-tests
+Depends: binwalk, python3-nose, wget
+Restrictions: allow-stderr, skippable
+
+Test-Command: binwalk testing/tests/input-vectors/foobar.lzma
+Depends: binwalk
+Restrictions: allow-stderr

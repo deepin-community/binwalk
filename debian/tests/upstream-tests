@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# For 2.3.0+dfsg-1
+GIT_COMMIT=80a519b63dd6a513fe53dcb02a78bf1b23eb8c5d
+
+set -e
+
+echo "Downloading the upstream git repository..."
+trap 'exit 77' EXIT  # skip the test if we fail while downloading data
+cd ${AUTOPKGTEST_TMP:-/tmp}
+wget -nv https://github.com/ReFirmLabs/binwalk/archive/${GIT_COMMIT}.tar.gz -O code.tar.gz
+tar xf code.tar.gz
+cd binwalk-*
+trap '' EXIT
+
+echo "Running the upstream tests"
+cd testing/tests
+export HOME=""
+nosetests3 --exe --verbosity=2
